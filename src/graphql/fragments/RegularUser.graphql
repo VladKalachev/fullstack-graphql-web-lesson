@@ -1,0 +1,4 @@
+fragment ReqularUser on User {
+  id
+  username
+}
