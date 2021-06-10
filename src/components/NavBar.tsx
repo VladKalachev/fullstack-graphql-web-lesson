@@ -3,17 +3,21 @@ import { Box, Link, Flex, Button, Heading } from "@chakra-ui/react";
 import NextLink from "next/link";
 import { useLogoutMutation, useMeQuery } from "../generated/graphql";
 import { useRouter } from "next/router";
+import { isServer } from "../utils/isServer";
 
 interface NavBarProps {}
 
 export const NavBar: React.FC<NavBarProps> = ({}) => {
   const router = useRouter();
-    const [{ fetching: logoutFetching }, logout] = useLogoutMutation();
+  const [{ fetching: logoutFetching }, logout] = useLogoutMutation();
 //   const apolloClient = useApolloClient();
-    const [{data, fetching}] = useMeQuery();
+  const [{data, fetching}] = useMeQuery({
+    pause: isServer(),
+  });
 //   const { data, loading } = useMeQuery({
 //     skip: isServer(),
 //   });
+console.log(data)
 
   let body = null;
   // data is loading
