@@ -14,7 +14,7 @@ const Login: React.FC<{}> = ({}) => {
   const [, login] = useLoginMutation();
   return (
     <Wrapper>
-    <Formik 
+    <Formik
       initialValues={{ username: '', password: ''}}
       onSubmit={async (values, { setErrors }) => {
       const response = await login({ options: values });
