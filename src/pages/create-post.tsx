@@ -7,10 +7,11 @@ import { InputField } from "../components/InputField";
 import { Layout } from "../components/Layout";
 import { useCreatePostMutation } from "../generated/graphql";
 import { createUrqlClient } from "../utils/createUrqlClient";
+import { useIsAuth } from '../utils/useIsAuth';
 
 const CreatePost: React.FC<{}> = ({}) => {
   const router = useRouter();
-  //useIsAuth();
+  useIsAuth();
   const [, createPost] = useCreatePostMutation();
   return (
     <Layout variant="small">
