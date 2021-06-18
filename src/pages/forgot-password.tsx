@@ -10,13 +10,13 @@ import { useForgotPasswordMutation } from "../generated/graphql";
 
 const ForgotPassword: React.FC<{}> = ({}) => {
   const [complete, setComplete] = useState(false);
-  const [forgotPassword] = useForgotPasswordMutation();
+  const [, forgotPassword] = useForgotPasswordMutation();
   return (
     <Wrapper variant="small">
       <Formik
         initialValues={{ email: "" }}
         onSubmit={async (values) => {
-          // await forgotPassword({ email: values });
+          await forgotPassword(values);
           setComplete(true);
         }}
       >
@@ -37,7 +37,7 @@ const ForgotPassword: React.FC<{}> = ({}) => {
                 mt={4}
                 type="submit"
                 isLoading={isSubmitting}
-                variantColor="teal"
+                colorScheme='teal'
               >
                 forgot password
               </Button>
