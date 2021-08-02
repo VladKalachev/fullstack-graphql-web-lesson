@@ -23,9 +23,6 @@ const Index = () => {
 
   return (
       <Layout>
-        <NextLink href="/create-post">
-          <Link>create post</Link>
-        </NextLink>
         <br />
         {!data && fetching ? ( 
           <div>loading...</div> 
