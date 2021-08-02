@@ -5,23 +5,12 @@ import { createUrqlClient } from "../../utils/createUrqlClient";
 import { Layout } from "../../components/Layout";
 import { Heading, Box } from "@chakra-ui/react";
 import { useGetPostFromUrl } from "../../utils/useGetPostFromUrl";
-import { usePostQuery } from "../../generated/graphql";
-import { useRouter } from "next/router";
-import { useGetIntId } from "../../utils/useGetIntId";
 // import { EditDeletePostButtons } from "../../components/EditDeletePostButtons";
 // import { withApollo } from "../../utils/withApollo";
 
 const Post = ({}) => {
-  const router = useRouter();
-  const intId = useGetIntId();
-  // const { data, error, loading } = useGetPostFromUrl();
-  const [{ data, fetching, error }] = usePostQuery({
-    pause: intId === -1,
-    variables: {
-      id: intId
-    }
-  })
-
+  const [{ data, error, fetching }] = useGetPostFromUrl();
+ 
   if (fetching) {
     return (
       <Layout>
