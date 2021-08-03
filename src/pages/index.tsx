@@ -44,7 +44,10 @@ const Index = () => {
                       {p.textSnippet}
                     </Text>
                     <Box ml="auto">
-                      <EditDeletePostButtons id={p.id} creatorId={p.creator.id}/>
+                      <EditDeletePostButtons 
+                        id={p.id} 
+                        creatorId={p.creator.id}
+                        />
                     </Box>
                   </Flex>
                 </Box>
