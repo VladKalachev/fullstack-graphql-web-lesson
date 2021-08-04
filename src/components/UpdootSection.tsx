@@ -69,7 +69,8 @@ export const UpdootSection: React.FC<UpdootSectionProps> = ({ post }) => {
             variables: {
               postId: post.id,
               value: 1,
-            }
+            },
+            update: (cache) => updateAfterVote(1, post.id, cache),
           });
           setLoadingState("not-loading");
         }}
@@ -88,7 +89,9 @@ export const UpdootSection: React.FC<UpdootSectionProps> = ({ post }) => {
             variables: {
               postId: post.id,
               value: -1,
-            }});
+            },
+            update: (cache) => updateAfterVote(-1, post.id, cache),
+          });
           setLoadingState("not-loading");
         }}
         colorScheme={post.voteStatus === -1 ? "red" : undefined}

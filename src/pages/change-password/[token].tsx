@@ -7,7 +7,7 @@ import { InputField } from "../../components/InputField";
 import { Box, Button, Link, Flex } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import NextLink from "next/link";
-import { useChangePasswordMutation } from "../../generated/graphql";
+import { MeDocument, MeQuery, useChangePasswordMutation } from "../../generated/graphql";
 import { withApollo } from "../../utils/withApollo";
 
 const ChangePassword: NextPage = () => {
@@ -23,9 +23,18 @@ const ChangePassword: NextPage = () => {
         onSubmit={async (values, { setErrors }) => {
           const response = await changePassword({
             variables: {
-            newPassword: values.newPassword,
-            token: typeof token === "string" ? token : "",
-          }})
+              newPassword: values.newPassword,
+              token: typeof token === "string" ? token : "",
+            },
+           update: (cache, { data }) => {
+            cache.writeQuery<MeQuery>({
+              query: MeDocument,
+              data: {
+                __typename: "Query",
+                me: data?.changePassword.user,
+              },
+            });
+          },})
           if (response.data?.changePassword.errors) {
             const errorMap = toErrorMap(response.data.changePassword.errors);
             if ("token" in errorMap) {
