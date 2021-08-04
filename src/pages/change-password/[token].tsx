@@ -8,13 +8,12 @@ import { Box, Button, Link, Flex } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import NextLink from "next/link";
 import { useChangePasswordMutation } from "../../generated/graphql";
-import { withUrqlClient } from "next-urql";
-import { createUrqlClient } from "../../utils/createUrqlClient";
+import { withApollo } from "../../utils/withApollo";
 
 const ChangePassword: NextPage = () => {
   const router = useRouter();
   const { token } = router.query;
-  const [, changePassword] = useChangePasswordMutation();
+  const [changePassword] = useChangePasswordMutation();
   const [tokenError, setTokenError] = useState("");
   
   return (
@@ -23,9 +22,10 @@ const ChangePassword: NextPage = () => {
         initialValues={{ newPassword: "" }}
         onSubmit={async (values, { setErrors }) => {
           const response = await changePassword({
+            variables: {
             newPassword: values.newPassword,
             token: typeof token === "string" ? token : "",
-          })
+          }})
           if (response.data?.changePassword.errors) {
             const errorMap = toErrorMap(response.data.changePassword.errors);
             if ("token" in errorMap) {
@@ -71,4 +71,4 @@ const ChangePassword: NextPage = () => {
   );
 };
 
-export default withUrqlClient(createUrqlClient)(ChangePassword);
+export default withApollo({ ssr: false })(ChangePassword);

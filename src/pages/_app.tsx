@@ -3,9 +3,9 @@ import theme from '../theme';
 
 function MyApp({ Component, pageProps }: any) {
   return (
-      <ChakraProvider resetCSS theme={theme}>
-        <Component {...pageProps} />
-      </ChakraProvider>
+    <ChakraProvider resetCSS theme={theme}>
+      <Component {...pageProps} />
+    </ChakraProvider>
   )
 }
 
