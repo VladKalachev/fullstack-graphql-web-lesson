@@ -14,9 +14,6 @@ export const NavBar: React.FC<NavBarProps> = ({}) => {
   const [{data, fetching}] = useMeQuery({
     pause: isServer(),
   });
-//   const { data, loading } = useMeQuery({
-//     skip: isServer(),
-//   });
 
   let body = null;
   // data is loading
@@ -46,6 +43,7 @@ export const NavBar: React.FC<NavBarProps> = ({}) => {
         <Button
           onClick={async () => {
             await logout();
+            router.reload();
             // await apolloClient.resetStore();
           }}
           isLoading={logoutFetching}

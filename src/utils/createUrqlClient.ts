@@ -1,5 +1,5 @@
 import { dedupExchange, Exchange, fetchExchange, gql, stringifyVariables } from "urql";
-import { cacheExchange, Resolver } from '@urql/exchange-graphcache';
+import { cacheExchange, Resolver, Cache } from '@urql/exchange-graphcache';
 import { pipe, tap } from "wonka";
 import Router from "next/router";
 import { 
@@ -157,7 +157,8 @@ export const createUrqlClient = (ssrExchange: any, ctx: any) => {
                       me: result.login.user,
                     };
                   }
-                })
+                });
+                invalidateAllPosts(cache);
             },
             register: (_result, args, cache, info) => {
               betterUpdateQuery<RegisterMutation, MeQuery>(cache, 
